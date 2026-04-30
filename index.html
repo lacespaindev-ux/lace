@@ -1850,14 +1850,32 @@
 </script>
 
 <script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); }
-    });
-  }, { threshold: 0.12 });
+  // Scroll reveal con cascada — una sola vez por elemento
+  document.documentElement.classList.add('js-ready');
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const staggerMs = () => window.innerWidth <= 768 ? 50 : 80;
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      el.classList.add('visible');
+
+      // Anima tarjetas hijas con efecto cascada
+      const cards = el.querySelectorAll('.service-card, .project-card');
+      if (cards.length) {
+        const delay = staggerMs();
+        cards.forEach((card, i) => {
+          card.style.transitionDelay = `${i * delay}ms`;
+          requestAnimationFrame(() => card.classList.add('card-visible'));
+        });
+      }
+
+      revealObserver.unobserve(el); // animación solo una vez
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 </script>
 <script>
   // Hamburger menu
