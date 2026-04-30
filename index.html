@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lace — Automatizaciones Python</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #fafaf8;
+    --accent: #1a6b4a;
+    --accent-light: #e8f5ef;
+    --accent-mid: #2d9b6f;
+    --gray-100: #f4f4f2;
+    --gray-300: #d4d4ce;
+    --gray-500: #8a8a82;
+    --gray-700: #3a3a36;
+    --font-serif: 'Instrument Serif', Georgia, serif;
+    --font-sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--white);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 68px;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-300);
+  }
+
+  .nav-logo {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    color: var(--black);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gray-700);
+    text-decoration: none;
+    transition: color .2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--black) !important;
+    color: var(--white) !important;
+    padding: 0.55rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    transition: background .2s !important;
+  }
+
+  .nav-cta:hover { background: var(--accent) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 5%;
+    padding-top: 68px;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-left { animation: fadeUp .8s ease both; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent-mid);
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.6rem, 4.5vw, 3.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    color: var(--black);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--gray-500);
+    max-width: 440px;
+    margin-bottom: 2.25rem;
+    line-height: 1.7;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--white);
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+  }
+
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--black);
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--gray-300);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-300);
+  }
+
+  .stat-num {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    margin-top: 0.2rem;
+  }
+
+  /* HERO RIGHT — code mockup */
+  .hero-right {
+    animation: fadeUp .8s .2s ease both;
+  }
+
+  .code-card {
+    background: var(--black);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.14);
+  }
+
+  .code-topbar {
+    background: #161616;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  .code-file {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: #666;
+    font-family: monospace;
+  }
+
+  .code-body {
+    padding: 1.5rem 1.75rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: #ccc;
+  }
+
+  .c-comment { color: #5a6470; }
+  .c-keyword { color: #c792ea; }
+  .c-string { color: #c3e88d; }
+  .c-func { color: #82aaff; }
+  .c-var { color: #f78c6c; }
+  .c-accent { color: #4fc1ff; }
+  .c-green { color: var(--accent-mid); }
+
+  .code-result {
+    margin-top: 1rem;
+    background: #0d1a14;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  .code-result p { font-size: 0.78rem; color: var(--accent-mid); }
+
+  /* SECTION BASE */
+  section {
+    padding: 7rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.9rem, 3vw, 2.8rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    color: var(--gray-500);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  /* SERVICES */
+  #servicios { background: var(--gray-100); max-width: 100%; }
+  #servicios > .inner { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    margin-top: 3.5rem;
+    background: var(--gray-300);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .service-card {
+    background: var(--white);
+    padding: 2.25rem;
+    transition: background .2s;
+  }
+
+  .service-card:hover { background: var(--accent-light); }
+
+  .service-icon {
+    width: 44px; height: 44px;
+    background: var(--accent-light);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: var(--black);
+  }
+
+  .service-card p {
+    font-size: 0.88rem;
+    color: var(--gray-500);
+    line-height: 1.65;
+  }
+
+  .service-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  /* PORTFOLIO */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .project-card {
+    border: 1.5px solid var(--gray-300);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 12px 32px rgba(26,107,74,0.1);
+  }
+
+  .project-header {
+    background: var(--black);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .project-icon {
+    width: 40px; height: 40px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .project-meta { flex: 1; }
+  .project-meta h3 { color: var(--white); font-size: 0.95rem; font-weight: 600; }
+  .project-meta span { font-size: 0.75rem; color: #666; }
+
+  .project-body { padding: 1.5rem; }
+
+  .project-body p { font-size: 0.88rem; color: var(--gray-700); line-height: 1.65; }
+
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+
+  .tag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.2rem 0.65rem;
+    border-radius: 4px;
+    background: var(--gray-100);
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+  }
+
+  .project-result {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--accent-light);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* PROCESS */
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 3.5rem;
+    position: relative;
+  }
+
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: var(--gray-300);
+    z-index: 0;
+  }
+
+  .step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: 0 1rem;
+  }
+
+  .step-num {
+    width: 44px; height: 44px;
+    background: var(--white);
+    border: 2px solid var(--gray-300);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--gray-500);
+    margin: 0 auto 1.25rem;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+
+  .step:hover .step-num {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+  }
+
+  .step h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .step p { font-size: 0.82rem; color: var(--gray-500); line-height: 1.6; }
+
+  /* TESTIMONIALS */
+  #testimonios { background: var(--black); max-width: 100%; color: var(--white); }
+  #testimonios > .inner { max-width: 1200px; margin: 0 auto; padding: 7rem 5%; }
+  #testimonios .section-label { color: var(--accent-mid); }
+  #testimonios .section-title { color: var(--white); }
+  #testimonios .section-sub { color: #666; }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .testi-card {
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 14px;
+    padding: 2rem;
+    transition: border-color .2s;
+  }
+
+  .testi-card:hover { border-color: var(--accent); }
+
+  .stars { color: #f4c430; font-size: 0.85rem; margin-bottom: 1rem; }
+
+  .testi-text {
+    font-size: 0.92rem;
+    color: #aaa;
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+
+  .testi-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .testi-name { font-size: 0.88rem; font-weight: 600; color: var(--white); }
+  .testi-role { font-size: 0.75rem; color: #555; }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+    align-items: start;
+  }
+
+  .price-card {
+    border: 1.5px solid var(--gray-300);
+    border-radius: 14px;
+    padding: 2rem;
+    transition: border-color .2s;
+    position: relative;
+  }
+
+  .price-card:hover { border-color: var(--gray-500); }
+
+  .price-card.featured {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .price-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.85rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .price-name { font-size: 0.8rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; }
+  .price-amount {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    margin: 0.75rem 0 0.25rem;
+    line-height: 1;
+  }
+  .price-desc { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+
+  .price-features { list-style: none; margin-bottom: 2rem; }
+  .price-features li {
+    font-size: 0.88rem;
+    color: var(--gray-700);
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--gray-300);
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+  }
+  .price-features li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+  .btn-plan {
+    display: block;
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all .2s;
+  }
+
+  .btn-plan-outline {
+    border: 1.5px solid var(--black);
+    color: var(--black);
+  }
+  .btn-plan-outline:hover { background: var(--black); color: var(--white); }
+
+  .btn-plan-filled {
+    background: var(--accent);
+    color: var(--white);
+  }
+  .btn-plan-filled:hover { background: #15573d; }
+
+  /* CONTACT FORM */
+  .contact-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .form-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--gray-700);
+  }
+
+  .form-input {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--gray-300);
+    border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--black);
+    background: var(--white);
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+    resize: vertical;
+    width: 100%;
+  }
+
+  .form-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(26,107,74,0.1);
+  }
+
+  .form-input::placeholder { color: var(--gray-500); }
+
+  .btn-submit {
+    background: var(--black);
+    color: var(--white);
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+    width: 100%;
+  }
+
+  .btn-submit:hover { background: var(--accent); transform: translateY(-1px); }
+
+  .form-alt {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--gray-500);
+  }
+
+  .form-alt a { color: var(--accent); text-decoration: none; }
+  .form-alt a:hover { text-decoration: underline; }
+  .form-alt span { margin: 0 0.4rem; }
+
+  select.form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%238a8a82' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  /* MULTI-SELECT */
+  .multi-select { position: relative; }
+
+  .ms-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    border: 1.5px solid var(--gray-300);
+    border-radius: 8px;
+    background: var(--white);
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+    min-height: 46px;
+    user-select: none;
+  }
+
+  .ms-trigger:focus,
+  .multi-select.open .ms-trigger {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(26,107,74,0.1);
+    outline: none;
+  }
+
+  .ms-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; flex: 1; }
+
+  .ms-placeholder { font-size: 0.9rem; color: var(--gray-500); }
+
+  .ms-tag {
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .ms-tag-remove { cursor: pointer; font-size: 0.9rem; line-height: 1; opacity: .7; }
+  .ms-tag-remove:hover { opacity: 1; }
+
+  .ms-arrow {
+    flex-shrink: 0;
+    color: var(--gray-500);
+    transition: transform .2s;
+  }
+
+  .multi-select.open .ms-arrow { transform: rotate(180deg); }
+
+  .ms-panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0; right: 0;
+    background: var(--white);
+    border: 1.5px solid var(--gray-300);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    z-index: 50;
+    display: none;
+    overflow: hidden;
+  }
+
+  .multi-select.open .ms-panel { display: block; }
+
+  .ms-options { max-height: 210px; overflow-y: auto; padding: 0.4rem 0; }
+
+  .ms-option {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.88rem;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: background .12s;
+  }
+
+  .ms-option:hover { background: var(--gray-100); }
+
+  .ms-option input[type="checkbox"] {
+    accent-color: var(--accent);
+    width: 15px; height: 15px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .ms-custom {
+    border-top: 1px solid var(--gray-300);
+    padding: 0.6rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .ms-custom-input {
+    flex: 1;
+    padding: 0.4rem 0.65rem;
+    border: 1.5px solid var(--gray-300);
+    border-radius: 6px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    outline: none;
+    color: var(--black);
+  }
+
+  .ms-custom-input:focus { border-color: var(--accent); }
+  .ms-custom-input::placeholder { color: var(--gray-500); }
+
+  .ms-add-btn {
+    padding: 0.4rem 0.85rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .15s;
+  }
+
+  .ms-add-btn:hover { background: #15573d; }
+
+  /* WHATSAPP FLOAT */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+    z-index: 200;
+    transition: transform .2s, box-shadow .2s;
+    text-decoration: none;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 8px 28px rgba(37,211,102,0.5);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--gray-300);
+    padding: 2.5rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--gray-500);
+  }
+
+  footer a { color: var(--gray-500); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 100px; }
+    .hero-right { display: none; }
+    .services-grid, .testimonials-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .process-steps::before { display: none; }
+    .nav-links { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .whatsapp-float { bottom: 1.25rem; right: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="32" height="32" rx="8" fill="#1a6b4a"/>
+      <!-- hilo inferior: diagonal opaca, interrumpida en el cruce -->
+      <path d="M23 8 C23 13 19 15 17 16" stroke="rgba(255,255,255,0.38)" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M15 16 C13 17 9 19 9 24" stroke="rgba(255,255,255,0.38)" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- hilo superior: diagonal blanca continua, pasa por encima -->
+      <path d="M9 8 C9 14 23 18 23 24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <span>Lace</span>
+  </a>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#precios">Precios</a>
+    <a href="#contacto" class="nav-cta">Contactar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Lace · Automatizaciones Python</div>
+    <h1>Tu negocio en <em>piloto automático</em></h1>
+    <p class="hero-sub">Construyo scripts y sistemas Python que eliminan el trabajo repetitivo, conectan tus herramientas y te ahorran horas cada semana.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-primary">Ver disponibilidad →</a>
+      <a href="#proyectos" class="btn-secondary">Ver proyectos</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Proyectos entregados</div>
+      </div>
+      <div>
+        <div class="stat-num">12h</div>
+        <div class="stat-label">Media ahorradas/semana</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Clientes satisfechos</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+      <div class="code-card">
+        <div class="code-topbar">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+          <span class="code-file">mail_downloader.py</span>
+        </div>
+        <div class="code-body">
+          <span class="c-comment"># Lace · Descarga adjuntos de correo automáticamente</span><br>
+          <span class="c-keyword">import</span> <span class="c-accent">imaplib</span>, <span class="c-accent">email</span>, <span class="c-accent">schedule</span><br><br>
+          <span class="c-keyword">def</span> <span class="c-func">procesar_correos</span>(<span class="c-var">intervalo_min</span>=<span class="c-string">30</span>):<br>
+          &nbsp;&nbsp;<span class="c-var">mail</span> = imaplib.<span class="c-func">IMAP4_SSL</span>(<span class="c-string">"imap.gmail.com"</span>)<br>
+          &nbsp;&nbsp;<span class="c-var">mail</span>.<span class="c-func">login</span>(<span class="c-var">USER</span>, <span class="c-var">PASS</span>)<br>
+          &nbsp;&nbsp;<span class="c-keyword">for</span> <span class="c-var">msg</span> <span class="c-keyword">in</span> <span class="c-func">get_emails</span>(<span class="c-var">mail</span>):<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-func">guardar_adjuntos</span>(<span class="c-var">msg</span>, <span class="c-string">"./adjuntos/"</span>)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-func">registrar_excel</span>(<span class="c-var">msg</span>)<br><br>
+          schedule.<span class="c-func">every</span>(<span class="c-var">intervalo_min</span>).<span class="c-accent">minutes</span>.<span class="c-func">do</span>(<span class="c-var">procesar_correos</span>)<br>
+          <div class="code-result">
+            <p>✓ 23 adjuntos descargados · registro.xlsx actualizado</p>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section id="servicios" style="background: var(--gray-100); max-width:100%; padding: 7rem 0;">
+  <div class="inner" style="max-width:1200px; margin:0 auto; padding: 0 5%;">
+    <div class="reveal">
+      <div class="section-label">Servicios</div>
+      <h2 class="section-title">Lo que puedo automatizar<br>para ti</h2>
+      <p class="section-sub">Scripts Python limpios, documentados y listos para correr en producción desde el primer día.</p>
+    </div>
+    <div class="services-grid reveal" style="margin-top:3.5rem;">
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>Procesamiento de datos</h3>
+        <p>Limpieza, transformación y consolidación de Excel, CSV, APIs o bases de datos. Sin errores manuales.</p>
+        <span class="service-tag">pandas · openpyxl · sqlite</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📧</div>
+        <h3>Automatización de emails</h3>
+        <p>Envío masivo personalizado, respuestas automáticas, reportes periódicos y alertas programadas.</p>
+        <span class="service-tag">smtplib · SendGrid</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <h3>Web scraping</h3>
+        <p>Extracción de datos de webs y portales para monitoreo de precios, competencia o noticias.</p>
+        <span class="service-tag">BeautifulSoup · Playwright</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔗</div>
+        <h3>Integración de APIs</h3>
+        <p>Conecto tus herramientas: CRM, contabilidad, e-commerce, Google Workspace y más.</p>
+        <span class="service-tag">REST · OAuth · webhooks</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📄</div>
+        <h3>Generación de documentos</h3>
+        <p>Facturas, contratos, informes y presentaciones en PDF o Word generados automáticamente.</p>
+        <span class="service-tag">ReportLab · python-docx</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⏱️</div>
+        <h3>Scripts programados</h3>
+        <p>Tareas que se ejecutan solas: backups, sincronizaciones, notificaciones y pipelines de datos.</p>
+        <span class="service-tag">cron · schedule · Airflow</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="reveal">
+    <div class="section-label">Proyectos</div>
+    <h2 class="section-title">Casos reales,<br>resultados medibles</h2>
+    <p class="section-sub">Proyectos entregados a clientes reales. Nombres cambiados por confidencialidad.</p>
+  </div>
+  <div class="portfolio-grid reveal">
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">📬</div>
+        <div class="project-meta">
+          <h3>Descarga automática de adjuntos</h3>
+          <span>Gestión documental · 1 semana</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <p>Aplicación que se conecta a tu bandeja de entrada, detecta correos con adjuntos, los descarga a una carpeta organizada y genera un Excel con el registro completo: remitente, asunto, fecha y nombre del archivo. Se ejecuta automáticamente cada X minutos.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">imaplib</span>
+          <span class="tag">openpyxl</span>
+          <span class="tag">schedule</span>
+          <span class="tag">Gmail / Outlook</span>
+        </div>
+        <div class="project-result">⚡ Elimina la revisión manual del correo para gestión de documentos</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">💼</div>
+        <div class="project-meta">
+          <h3>Facturación automática</h3>
+          <span>Consultoría · 2 semanas</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <p>Lee un Excel con clientes y servicios, genera facturas PDF personalizadas y las envía por email con seguimiento de pagos pendientes.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">ReportLab</span>
+          <span class="tag">Gmail API</span>
+          <span class="tag">openpyxl</span>
+        </div>
+        <div class="project-result">⚡ 127 facturas en 4 segundos vs 3 horas manuales</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">📈</div>
+        <div class="project-meta">
+          <h3>Monitor de precios</h3>
+          <span>Retail · 1 semana</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <p>Scraper que revisa precios de competidores cada 6 horas y genera un dashboard en Google Sheets con alertas cuando hay cambios relevantes.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Playwright</span>
+          <span class="tag">Google Sheets API</span>
+          <span class="tag">cron</span>
+        </div>
+        <div class="project-result">⚡ Detectó bajadas de precio en tiempo real por primera vez</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">📊</div>
+        <div class="project-meta">
+          <h3>Pipeline de reportes</h3>
+          <span>SaaS · 4 semanas</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <p>Consolida datos de múltiples bases de datos SQL, genera reportes en PDF y los envía automáticamente a cada cliente cada lunes a las 8am.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">Jinja2</span>
+          <span class="tag">WeasyPrint</span>
+        </div>
+        <div class="project-result">⚡ 200+ reportes personalizados enviados cada semana</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso" style="background: var(--gray-100); max-width:100%; padding:7rem 0;">
+  <div style="max-width:1200px; margin:0 auto; padding:0 5%;">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">Cómo trabajo</div>
+      <h2 class="section-title">Del problema al script<br>en 4 pasos</h2>
+    </div>
+    <div class="process-steps reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Diagnóstico</h4>
+        <p>Entiendo tu proceso actual, qué haces manualmente y cuánto tiempo te cuesta.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>Propuesta</h4>
+        <p>Te presento la solución técnica, el plazo y el precio antes de empezar nada.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Desarrollo</h4>
+        <p>Construyo el script con actualizaciones frecuentes. Tú pruebas, yo ajusto.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>Entrega</h4>
+        <p>Código documentado, instalación guiada y soporte post-entrega incluido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios" style="background:var(--black); max-width:100%; padding:7rem 0; color:var(--white);">
+  <div style="max-width:1200px; margin:0 auto; padding:0 5%;">
+    <div class="reveal">
+      <div class="section-label" style="color:var(--accent-mid)">Testimonios</div>
+      <h2 class="section-title" style="color:var(--white)">Lo que dicen<br>los clientes</h2>
+    </div>
+    <div class="testimonials-grid reveal">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Nos ahorró semanas de trabajo. El script funciona perfecto desde el primer día y el código es muy limpio. Lo recomendaría sin dudar."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MR</div>
+          <div>
+            <div class="testi-name">María R.</div>
+            <div class="testi-role">CEO · Empresa logística</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Muy profesional y rápido. Explicó todo el proceso con claridad y entregó exactamente lo que necesitábamos. Seguiremos trabajando juntos."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JG</div>
+          <div>
+            <div class="testi-name">Javier G.</div>
+            <div class="testi-role">Director de Ops · SaaS</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"El mejor dinero que hemos invertido en tecnología. El proceso de onboarding es automatizado y ya no perdemos tiempo en tareas repetitivas."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AL</div>
+          <div>
+            <div class="testi-name">Ana L.</div>
+            <div class="testi-role">Fundadora · E-commerce</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-label">Precios</div>
+    <h2 class="section-title">Sin sorpresas, sin letra pequeña</h2>
+    <p class="section-sub" style="margin: 0 auto;">Precios fijos por proyecto. Sabes exactamente cuánto pagas antes de empezar.</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="price-card">
+      <div class="price-name">Script</div>
+      <div class="price-amount">desde 199€</div>
+      <div class="price-desc">Automatizaciones simples y bien definidas</div>
+      <ul class="price-features">
+        <li>1 script Python</li>
+        <li>Entrega en 5 días</li>
+        <li>Documentación básica</li>
+        <li>1 revisión incluida</li>
+        <li>Soporte 15 días</li>
+      </ul>
+      <a href="#contacto" class="btn-plan btn-plan-outline">Solicitar →</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Más popular</div>
+      <div class="price-name">Automatización</div>
+      <div class="price-amount">desde 599€</div>
+      <div class="price-desc">Sistemas completos listos para producción</div>
+      <ul class="price-features">
+        <li>Múltiples scripts integrados</li>
+        <li>Entrega en 2–3 semanas</li>
+        <li>Documentación completa</li>
+        <li>Revisiones ilimitadas</li>
+        <li>Soporte 60 días</li>
+        <li>Instalación guiada</li>
+      </ul>
+      <a href="#contacto" class="btn-plan btn-plan-filled">Solicitar →</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Retainer</div>
+      <div class="price-amount">desde 799€/mes</div>
+      <div class="price-desc">Para equipos que necesitan automatizaciones continuas</div>
+      <ul class="price-features">
+        <li>20h de desarrollo/mes</li>
+        <li>Prioridad en entregas</li>
+        <li>Mantenimiento incluido</li>
+        <li>Reuniones semanales</li>
+        <li>Soporte continuo</li>
+      </ul>
+      <a href="#contacto" class="btn-plan btn-plan-outline">Hablar →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" style="background: var(--gray-100); max-width:100%; padding: 7rem 0;">
+  <div class="contact-wrap">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">Contacto</div>
+      <h2 class="section-title">Cuéntame qué necesitas<br>automatizar</h2>
+      <p class="section-sub" style="margin:0 auto;">Primera consulta gratuita. Sin compromiso. Respondo en menos de 24h.</p>
+    </div>
+    <form id="form-contacto" name="automatizacion" data-netlify="true" class="contact-form reveal">
+      <input type="hidden" name="form-name" value="automatizacion">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="nombre">Nombre</label>
+          <input class="form-input" id="nombre" type="text" name="nombre" placeholder="María García" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" id="email" type="email" name="email" placeholder="maria@empresa.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="proceso">¿Qué proceso quieres automatizar?</label>
+        <textarea class="form-input" id="proceso" name="proceso" rows="5" placeholder="Ej: Cada semana descargo facturas de mi proveedor, las reviso una a una y actualizo un Excel con los importes..." required></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="tiempo">Tiempo actual en esta tarea</label>
+          <select class="form-input" id="tiempo" name="tiempo">
+            <option value="" disabled selected>Selecciona un intervalo...</option>
+            <option>Menos de 1 hora a la semana</option>
+            <option>1-2 horas a la semana</option>
+            <option>2-5 horas a la semana</option>
+            <option>5-10 horas a la semana</option>
+            <option>Más de 10 horas a la semana</option>
+            <option>Menos de 1 hora al día</option>
+            <option>1-2 horas al día</option>
+            <option>Más de 2 horas al día</option>
+            <option>Variable / depende del mes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Herramientas que usas</label>
+          <div class="multi-select" id="ms-herramientas">
+            <div class="ms-trigger" tabindex="0">
+              <div class="ms-tags"><span class="ms-placeholder">Selecciona herramientas...</span></div>
+              <svg class="ms-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 7L11 1" stroke="#8a8a82" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="ms-panel">
+              <div class="ms-options">
+                <label class="ms-option"><input type="checkbox" value="Excel / Google Sheets"> Excel / Google Sheets</label>
+                <label class="ms-option"><input type="checkbox" value="Gmail / Outlook"> Gmail / Outlook</label>
+                <label class="ms-option"><input type="checkbox" value="Google Drive"> Google Drive</label>
+                <label class="ms-option"><input type="checkbox" value="Google Docs"> Google Docs</label>
+                <label class="ms-option"><input type="checkbox" value="WhatsApp Business"> WhatsApp Business</label>
+                <label class="ms-option"><input type="checkbox" value="Shopify"> Shopify</label>
+                <label class="ms-option"><input type="checkbox" value="WooCommerce"> WooCommerce</label>
+                <label class="ms-option"><input type="checkbox" value="WordPress"> WordPress</label>
+                <label class="ms-option"><input type="checkbox" value="Notion"> Notion</label>
+                <label class="ms-option"><input type="checkbox" value="Airtable"> Airtable</label>
+                <label class="ms-option"><input type="checkbox" value="HubSpot"> HubSpot</label>
+                <label class="ms-option"><input type="checkbox" value="Salesforce"> Salesforce</label>
+                <label class="ms-option"><input type="checkbox" value="Holded"> Holded</label>
+                <label class="ms-option"><input type="checkbox" value="Factura Directa"> Factura Directa</label>
+                <label class="ms-option"><input type="checkbox" value="Trello / Asana"> Trello / Asana</label>
+                <label class="ms-option"><input type="checkbox" value="Slack"> Slack</label>
+                <label class="ms-option"><input type="checkbox" value="Dropbox"> Dropbox</label>
+                <label class="ms-option"><input type="checkbox" value="Zapier / Make"> Zapier / Make</label>
+                <label class="ms-option"><input type="checkbox" value="SAP"> SAP</label>
+                <label class="ms-option"><input type="checkbox" value="PDF / Word"> PDF / Word</label>
+              </div>
+              <div class="ms-custom">
+                <input type="text" class="ms-custom-input" placeholder="Otra herramienta...">
+                <button type="button" class="ms-add-btn">Añadir</button>
+              </div>
+            </div>
+            <input type="hidden" name="herramientas" id="herramientas-val">
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" id="btn-submit">Enviar solicitud →</button>
+    </form>
+
+    <div id="form-exito" style="display:none; text-align:center; padding: 3rem 2rem; background: var(--white); border-radius: 14px; border: 1.5px solid var(--accent);">
+      <div style="width:52px; height:52px; background:var(--accent-light); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.25rem; font-size:1.4rem;">✓</div>
+      <h3 style="font-family:var(--font-serif); font-size:1.5rem; margin-bottom:0.6rem;">¡Solicitud enviada!</h3>
+      <p style="color:var(--gray-500); font-size:0.95rem; line-height:1.7;">Gracias por contactar. He recibido tu solicitud y me pondré en contacto contigo en menos de 24 horas.</p>
+    </div>
+
+    <p class="form-alt">
+      O escríbeme directamente:
+      <a href="mailto:lacespaindev@gmail.com">lacespaindev@gmail.com</a>
+      <span>·</span>
+      <a href="https://wa.me/34722197596?text=Hola%2C%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20tus%20automatizaciones" target="_blank" rel="noopener">WhatsApp</a>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Lace · Automatizaciones Python</span>
+  <div style="display:flex; gap:1.5rem;">
+    <a href="#">LinkedIn</a>
+    <a href="#">GitHub</a>
+    <a href="mailto:hola@lace.dev">lacespaindev@gmail.com</a>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/34722197596?text=Hola%2C%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20tus%20automatizaciones"
+   class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 1.75C7.234 1.75 1.75 7.234 1.75 14c0 2.363.658 4.573 1.8 6.46L1.75 26.25l6.04-1.778A12.19 12.19 0 0014 26.25c6.766 0 12.25-5.484 12.25-12.25S20.766 1.75 14 1.75z" fill="white"/>
+    <path d="M10.16 8.05c-.26-.62-.53-.63-.78-.64-.2-.01-.44-.01-.67-.01-.24 0-.62.09-.94.44-.33.35-1.25 1.22-1.25 2.97s1.28 3.45 1.46 3.69c.18.24 2.48 3.95 6.1 5.38 3.02 1.19 3.63.95 4.29.89.65-.06 2.1-.86 2.4-1.69.3-.83.3-1.54.21-1.69-.09-.15-.33-.24-.68-.42-.36-.18-2.1-1.04-2.43-1.16-.32-.12-.56-.18-.8.18-.24.36-.92 1.16-1.13 1.4-.21.24-.42.27-.77.09-.36-.18-1.5-.55-2.86-1.76-1.06-.94-1.77-2.1-1.98-2.46-.2-.36-.02-.55.16-.73.16-.16.36-.42.53-.62.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.62-.09-.18-.77-1.9-1.07-2.6z" fill="#25D366"/>
+  </svg>
+</a>
+
+<script>
+  // Formulario de contacto
+  const form = document.getElementById('form-contacto');
+  const btnSubmit = document.getElementById('btn-submit');
+  const formExito = document.getElementById('form-exito');
+
+  // Multi-select herramientas
+  (function () {
+    const ms = document.getElementById('ms-herramientas');
+    const trigger = ms.querySelector('.ms-trigger');
+    const tagsWrap = ms.querySelector('.ms-tags');
+    const placeholder = ms.querySelector('.ms-placeholder');
+    const checkboxes = ms.querySelectorAll('.ms-option input[type="checkbox"]');
+    const hidden = document.getElementById('herramientas-val');
+    const customInput = ms.querySelector('.ms-custom-input');
+    const addBtn = ms.querySelector('.ms-add-btn');
+    const selected = new Set();
+
+    function render() {
+      tagsWrap.innerHTML = '';
+      if (selected.size === 0) {
+        tagsWrap.appendChild(placeholder);
+      } else {
+        selected.forEach(val => {
+          const tag = document.createElement('span');
+          tag.className = 'ms-tag';
+          tag.innerHTML = `${val} <span class="ms-tag-remove" data-val="${val}">×</span>`;
+          tagsWrap.appendChild(tag);
+        });
+      }
+      hidden.value = Array.from(selected).join(', ');
+    }
+
+    trigger.addEventListener('click', () => ms.classList.toggle('open'));
+    trigger.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ms.classList.toggle('open'); }
+    });
+
+    checkboxes.forEach(cb => cb.addEventListener('change', () => {
+      cb.checked ? selected.add(cb.value) : selected.delete(cb.value);
+      render();
+    }));
+
+    tagsWrap.addEventListener('click', e => {
+      const rm = e.target.closest('.ms-tag-remove');
+      if (!rm) return;
+      const val = rm.dataset.val;
+      selected.delete(val);
+      checkboxes.forEach(cb => { if (cb.value === val) cb.checked = false; });
+      render();
+    });
+
+    function addCustom() {
+      const val = customInput.value.trim();
+      if (!val) return;
+      selected.add(val);
+      customInput.value = '';
+      render();
+    }
+
+    addBtn.addEventListener('click', addCustom);
+    customInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addCustom(); } });
+    document.addEventListener('click', e => { if (!ms.contains(e.target)) ms.classList.remove('open'); });
+  })();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btnSubmit.textContent = 'Enviando...';
+    btnSubmit.disabled = true;
+
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      });
+      form.style.display = 'none';
+      formExito.style.display = 'block';
+      formExito.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch {
+      btnSubmit.textContent = 'Error al enviar. Inténtalo de nuevo.';
+      btnSubmit.disabled = false;
+    }
+  });
+</script>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
