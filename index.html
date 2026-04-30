@@ -1787,22 +1787,31 @@
     document.addEventListener('click', e => { if (!ms.contains(e.target)) ms.classList.remove('open'); });
   })();
 
+  // ─── EmailJS ────────────────────────────────────────────────────────────────
+  // Sustituye los tres valores de abajo con tus credenciales de EmailJS
+  const EMAILJS_PUBLIC_KEY  = 'YOUR_EMAILJS_PUBLIC_KEY';   // ← tu Public Key
+  const EMAILJS_SERVICE_ID  = 'YOUR_EMAILJS_SERVICE_ID';   // ← tu Service ID
+  const EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID';  // ← tu Template ID
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+  // ────────────────────────────────────────────────────────────────────────────
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const formError = document.getElementById('form-error');
+    formError.style.display = 'none';
     btnSubmit.textContent = 'Enviando...';
     btnSubmit.disabled = true;
 
     try {
-      await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(new FormData(form)).toString()
-      });
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
       form.style.display = 'none';
       formExito.style.display = 'block';
       formExito.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } catch {
-      btnSubmit.textContent = 'Error al enviar. Inténtalo de nuevo.';
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      formError.style.display = 'block';
+      formError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      btnSubmit.textContent = 'Enviar solicitud →';
       btnSubmit.disabled = false;
     }
   });
