@@ -1106,6 +1106,50 @@
     <h2 class="section-title">Casos reales,<br>resultados medibles</h2>
     <p class="section-sub">Proyectos entregados a clientes reales. Nombres cambiados por confidencialidad.</p>
   </div>
+  <!-- CASO DESTACADO -->
+  <div class="featured-project reveal">
+    <div class="featured-left">
+      <div>
+        <div class="featured-badge">En producción</div>
+        <h3>Bot de compras automatizado para e-commerce</h3>
+        <div class="featured-client">Velora Fashion · E-commerce · 3 semanas</div>
+        <p>Velora necesitaba comprar stock a varios proveedores en cuanto se publicaban nuevas colecciones, antes de que se agotara. El proceso manual tardaba horas y siempre llegaban tarde.</p>
+        <p>Construí un bot en Python que monitoriza los portales de proveedor cada pocos minutos, detecta nuevos artículos según reglas de negocio (talla, referencia, margen), rellena el carrito automáticamente y completa el pedido. Notifica por Telegram con el resumen de cada compra realizada.</p>
+        <div class="project-tags" style="margin-bottom:1.5rem;">
+          <span class="tag">Python</span>
+          <span class="tag">Playwright</span>
+          <span class="tag">BeautifulSoup</span>
+          <span class="tag">schedule</span>
+          <span class="tag">Telegram API</span>
+          <span class="tag">SQLite</span>
+        </div>
+      </div>
+      <div class="project-result" style="font-size:0.88rem;">⚡ Tiempo de reacción de 4 horas a &lt;3 minutos — sin intervención humana</div>
+    </div>
+    <div class="featured-right">
+      <div class="terminal-bar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span style="margin-left:auto;font-size:0.7rem;color:#3e4e3e;font-family:monospace;">velora_bot.py</span>
+      </div>
+      <div class="terminal-body">
+        <span class="t-dim">── 09:14:02 ── escaneo proveedor #1</span><br>
+        <span class="t-prompt">▶</span> <span class="t-cmd">check_catalog("nordex-supply.es")</span><br>
+        <span class="t-info">  → 3 referencias nuevas detectadas</span><br>
+        <span class="t-info">  → REF-8821 · Blazer lino · talla S,M → ✓ reglas OK</span><br>
+        <span class="t-prompt">▶</span> <span class="t-cmd">add_to_cart(ref="8821", qty=12)</span><br>
+        <span class="t-ok">  ✓ Añadido al carrito</span><br>
+        <span class="t-prompt">▶</span> <span class="t-cmd">checkout(payment="bizum_b2b")</span><br>
+        <span class="t-ok">  ✓ Pedido #VL-4492 confirmado</span><br>
+        <span class="t-dim">── 09:14:09 ── notificación enviada</span><br>
+        <div class="terminal-result">
+          <span class="t-ok">✓ Telegram</span> <span class="t-dim">→</span> <span style="color:#aaa">Pedido confirmado: 12 uds REF-8821 · 7 seg desde detección</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="portfolio-grid reveal">
     <div class="project-card">
       <div class="project-header">
