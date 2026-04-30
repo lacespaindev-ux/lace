@@ -1096,12 +1096,27 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .reveal {
+  /* Scroll reveal — progressive enhancement: solo oculto si JS está activo */
+  .reveal { transition: opacity .6s ease, transform .6s ease; }
+  .js-ready .reveal { opacity: 0; transform: translateY(20px); }
+  .js-ready .reveal.visible { opacity: 1; transform: none; }
+
+  /* Cascada de tarjetas: cada una anima por separado */
+  .js-ready .service-card,
+  .js-ready .project-card {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity .6s ease, transform .6s ease;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   }
-  .reveal.visible { opacity: 1; transform: none; }
+  .js-ready .service-card.card-visible,
+  .js-ready .project-card.card-visible { opacity: 1; transform: none; }
+
+  /* Móvil: animaciones más rápidas */
+  @media (max-width: 768px) {
+    .js-ready .reveal { transition-duration: .4s; }
+    .js-ready .service-card,
+    .js-ready .project-card { transition-duration: .35s; }
+  }
 
   /* HAMBURGER */
   .nav-hamburger {
