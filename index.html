@@ -402,6 +402,16 @@
     animation: pulse 2s infinite;
   }
 
+  /* Variante badge para entornos críticos */
+  .featured-badge-critical {
+    background: #dde7f8;
+    color: #1a3a7a;
+  }
+  .featured-badge-critical::before {
+    background: #3b6fd4;
+    animation: none;
+  }
+
   @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.3; }
