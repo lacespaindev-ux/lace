@@ -1,0 +1,11 @@
+# Secretos — nunca al repo
+.env
+
+# Scripts de deploy (ya no hacen falta con git)
+deploy.py
+deploy.sh
+github_deploy.py
+netlify_deploy.py
+
+# Sistema
+.DS_Store
