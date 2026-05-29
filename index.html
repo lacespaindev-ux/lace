@@ -97,13 +97,25 @@
   .logo {
     display: flex;
     align-items: center;
-    gap: 9px;
-    font-size: 1.15rem;
+    gap: 10px;
+    font-size: 22px;
     font-weight: 700;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.5px;
     color: var(--text);
   }
-  .logo svg { border-radius: 8px; }
+  .logo svg { border-radius: 10px; }
+  .logo-icon {
+    animation: rotate3d 8s linear infinite;
+    transform-style: preserve-3d;
+    cursor: pointer;
+  }
+  .logo-icon:hover {
+    animation: rotate3d 1.5s linear infinite;
+  }
+  @keyframes rotate3d {
+    0%   { transform: perspective(200px) rotateY(0deg); }
+    100% { transform: perspective(200px) rotateY(360deg); }
+  }
   .btn {
     display: inline-flex;
     align-items: center;
