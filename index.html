@@ -1332,30 +1332,6 @@
       <span style="font-size:0.82rem; color:var(--gray-500);">Respondiendo consultas en menos de 24h</span>
     </div>
   </div>
-  <div class="hero-right">
-      <div class="code-card">
-        <div class="code-topbar">
-          <span class="dot dot-r"></span>
-          <span class="dot dot-y"></span>
-          <span class="dot dot-g"></span>
-          <span class="code-file">mail_downloader.py</span>
-        </div>
-        <div class="code-body">
-          <span class="c-comment"># Lace · Descarga adjuntos de correo automáticamente</span><br>
-          <span class="c-keyword">import</span> <span class="c-accent">imaplib</span>, <span class="c-accent">email</span>, <span class="c-accent">schedule</span><br><br>
-          <span class="c-keyword">def</span> <span class="c-func">procesar_correos</span>(<span class="c-var">intervalo_min</span>=<span class="c-string">30</span>):<br>
-          &nbsp;&nbsp;<span class="c-var">mail</span> = imaplib.<span class="c-func">IMAP4_SSL</span>(<span class="c-string">"imap.gmail.com"</span>)<br>
-          &nbsp;&nbsp;<span class="c-var">mail</span>.<span class="c-func">login</span>(<span class="c-var">USER</span>, <span class="c-var">PASS</span>)<br>
-          &nbsp;&nbsp;<span class="c-keyword">for</span> <span class="c-var">msg</span> <span class="c-keyword">in</span> <span class="c-func">get_emails</span>(<span class="c-var">mail</span>):<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-func">guardar_adjuntos</span>(<span class="c-var">msg</span>, <span class="c-string">"./adjuntos/"</span>)<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-func">registrar_excel</span>(<span class="c-var">msg</span>)<br><br>
-          schedule.<span class="c-func">every</span>(<span class="c-var">intervalo_min</span>).<span class="c-accent">minutes</span>.<span class="c-func">do</span>(<span class="c-var">procesar_correos</span>)<br>
-          <div class="code-result">
-            <p>✓ 23 adjuntos descargados · registro.xlsx actualizado</p>
-          </div>
-        </div>
-      </div>
-  </div>
 </div>
 
 <!-- SERVICIOS -->
