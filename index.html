@@ -29,118 +29,140 @@
 <meta name="twitter:description" content="¿Cuánto tiempo pierdes cada semana en tareas que podrían hacerse solas?">
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='32' height='32' rx='8' fill='%231a6b4a'/%3E%3Cpath d='M23 8 C23 13 19 15 17 16' stroke='rgba(255,255,255,0.38)' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M15 16 C13 17 9 19 9 24' stroke='rgba(255,255,255,0.38)' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M9 8 C9 14 23 18 23 24' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
 <style>
   :root {
-    --bg: #0a0a0a;
-    --bg-soft: #111111;
-    --bg-card: #141414;
-    --border: #242424;
-    --text: #f5f5f5;
-    --text-muted: #a1a1a1;
-    --green-deep: #1a6b4a;
-    --green: #2d9b6f;
-    --whatsapp: #25D366;
-    --radius: 16px;
+    --bg: #ffffff;
+    --bg-soft: #f5f5f7;
+    --bg-card: rgba(255,255,255,0.72);
+    --border: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.12);
+    --text: #1d1d1f;
+    --text-secondary: #424245;
+    --text-muted: #6e6e73;
+    --green: #22c55e;
+    --green-dark: #16a34a;
+    --green-light: rgba(34,197,94,0.08);
+    --green-glow: rgba(34,197,94,0.15);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.09), 0 4px 12px rgba(0,0,0,0.05);
+    --radius: 18px;
+    --radius-sm: 12px;
+    --font: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Helvetica Neue', sans-serif;
   }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: var(--bg);
+    font-family: var(--font);
+    background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
     color: var(--text);
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    min-height: 100vh;
   }
 
   a { text-decoration: none; color: inherit; }
 
   .container {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
   }
 
-  /* ===== NAV ===== */
+  /* ── NAV ── */
   nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 100;
-    background: rgba(10, 10, 10, 0.7);
-    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--border);
   }
   .nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 56px;
   }
   .logo {
-    font-size: 1.4rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
   }
-  .logo-dot {
-    width: 36px;
-    height: 36px;
-    border-radius: 9px;
-    flex-shrink: 0;
-  }
+  .logo svg { border-radius: 8px; }
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 11px 22px;
-    border-radius: 999px;
+    gap: 6px;
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 9px 20px;
+    border-radius: 980px;
     border: none;
     cursor: pointer;
-    transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
-    font-family: inherit;
+    transition: all 0.2s ease;
+    letter-spacing: -0.01em;
   }
-  .btn:hover { transform: translateY(-2px); }
   .btn-nav {
     background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text);
+    border: 1px solid var(--border-strong);
+    color: var(--text-secondary);
   }
-  .btn-nav:hover { border-color: var(--green); }
-  .btn-whatsapp {
-    background: var(--whatsapp);
-    color: #07351c;
-    font-weight: 700;
-    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.25);
+  .btn-nav:hover {
+    background: var(--bg-soft);
+    border-color: rgba(0,0,0,0.18);
   }
-  .btn-whatsapp:hover { box-shadow: 0 12px 32px rgba(37, 211, 102, 0.4); }
   .btn-green {
     background: var(--green);
     color: #fff;
-    box-shadow: 0 8px 24px rgba(45, 155, 111, 0.3);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(34,197,94,0.3);
   }
-  .btn-green:hover { background: #34af7e; }
+  .btn-green:hover {
+    background: var(--green-dark);
+    box-shadow: 0 4px 14px rgba(34,197,94,0.4);
+    transform: translateY(-1px);
+  }
+  .btn-whatsapp {
+    background: #22c55e;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 28px;
+    box-shadow: 0 4px 16px rgba(34,197,94,0.32);
+  }
+  .btn-whatsapp:hover {
+    background: var(--green-dark);
+    box-shadow: 0 6px 20px rgba(34,197,94,0.44);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text-secondary);
+  }
+  .btn-outline:hover {
+    background: var(--bg-soft);
+    border-color: rgba(0,0,0,0.18);
+  }
 
-  /* ===== HERO ===== */
+  /* ── HERO ── */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -148,17 +170,19 @@
     justify-content: center;
     padding: 120px 0 80px;
     position: relative;
+    overflow: hidden;
   }
-  .hero::before {
-    content: "";
+  .hero-glow {
     position: absolute;
-    top: -10%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 700px;
-    height: 700px;
-    max-width: 100%;
-    background: radial-gradient(circle, rgba(45,155,111,0.18) 0%, rgba(10,10,10,0) 65%);
+    transform: translate(-50%, -60%);
+    width: 900px;
+    height: 600px;
+    background: radial-gradient(ellipse at center,
+      rgba(34,197,94,0.12) 0%,
+      rgba(134,239,172,0.06) 40%,
+      transparent 70%);
     pointer-events: none;
     z-index: 0;
   }
@@ -166,139 +190,187 @@
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
+    gap: 7px;
+    font-size: 0.82rem;
     font-weight: 600;
-    color: var(--green);
-    background: rgba(45,155,111,0.1);
-    border: 1px solid rgba(45,155,111,0.25);
-    padding: 6px 14px;
-    border-radius: 999px;
+    color: var(--green-dark);
+    background: var(--green-light);
+    border: 1px solid rgba(34,197,94,0.2);
+    padding: 5px 13px;
+    border-radius: 980px;
     margin-bottom: 28px;
+    letter-spacing: 0.01em;
   }
   .hero h1 {
-    font-size: clamp(2rem, 6vw, 3.6rem);
+    font-size: clamp(2.1rem, 5.5vw, 3.8rem);
     font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    max-width: 820px;
+    line-height: 1.07;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    max-width: 800px;
     margin-bottom: 36px;
   }
   .hero-bullets {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-bottom: 40px;
-    max-width: 620px;
+    gap: 14px;
+    margin-bottom: 44px;
+    max-width: 580px;
   }
   .hero-bullets li {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
+    gap: 13px;
     font-size: 1.05rem;
+    font-weight: 400;
     color: var(--text-muted);
+    letter-spacing: -0.01em;
   }
-  .hero-bullets .ico {
-    font-size: 1.4rem;
-    line-height: 1.4;
-    flex-shrink: 0;
-  }
+  .hero-bullets .ico { font-size: 1.2rem; line-height: 1.6; flex-shrink: 0; }
   .hero-cta-row {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 14px;
   }
-  .btn-lg { padding: 16px 30px; font-size: 1.05rem; }
   .cta-sub {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
+    letter-spacing: -0.01em;
   }
   .pulse {
-    width: 8px; height: 8px; border-radius: 50%;
+    width: 7px; height: 7px;
+    border-radius: 50%;
     background: var(--green);
-    box-shadow: 0 0 0 0 rgba(45,155,111,0.6);
-    animation: pulse 2s infinite;
+    box-shadow: 0 0 0 0 rgba(34,197,94,0.5);
+    animation: pulse 2.2s infinite;
+    flex-shrink: 0;
   }
   @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(45,155,111,0.5); }
-    70% { box-shadow: 0 0 0 10px rgba(45,155,111,0); }
-    100% { box-shadow: 0 0 0 0 rgba(45,155,111,0); }
+    0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.45); }
+    70%  { box-shadow: 0 0 0 9px rgba(34,197,94,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
   }
 
-  /* ===== SECTIONS ===== */
-  section { padding: 90px 0; }
-  .section-head { max-width: 640px; margin-bottom: 56px; }
+  /* ── SECTIONS ── */
+  section { padding: 96px 0; }
+  .section-head { max-width: 600px; margin-bottom: 56px; }
   .section-head h2 {
-    font-size: clamp(1.7rem, 4vw, 2.5rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
+    font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
     margin-bottom: 14px;
+    color: var(--text);
   }
-  .section-head p { color: var(--text-muted); font-size: 1.05rem; }
+  .section-head p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
   .tag {
-    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--green);
-    margin-bottom: 14px; display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 14px;
+    display: block;
   }
 
-  /* ===== CASES ===== */
+  /* ── CASOS ── */
+  .bg-soft { background: var(--bg-soft); }
   .grid-3 {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 16px;
   }
-  .card {
+  .glass-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 32px;
-    transition: transform 0.25s ease, border-color 0.25s ease;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   }
-  .card:hover { transform: translateY(-4px); border-color: rgba(45,155,111,0.4); }
-  .card .label {
-    font-size: 0.82rem; font-weight: 600; color: var(--green);
-    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px;
+  .glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(34,197,94,0.25);
   }
-  .card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
-  .card p { color: var(--text-muted); }
+  .card-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--green-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-label::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+  .glass-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+  .glass-card p { color: var(--text-muted); font-size: 0.97rem; letter-spacing: -0.01em; }
 
-  /* ===== PROCESS ===== */
+  /* ── PROCESS ── */
   .steps {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 12px;
   }
   .step {
-    background: var(--bg-soft);
+    background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px;
-    position: relative;
+    border-radius: var(--radius-sm);
+    padding: 26px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
+  .step:hover { transform: translateX(4px); box-shadow: var(--shadow-md); }
   .step-num {
-    width: 40px; height: 40px;
+    width: 38px; height: 38px;
+    flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
     border-radius: 50%;
-    background: rgba(45,155,111,0.12);
-    border: 1px solid rgba(45,155,111,0.3);
-    color: var(--green);
-    font-weight: 800;
-    margin-bottom: 16px;
+    background: var(--green-light);
+    border: 1px solid rgba(34,197,94,0.2);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    letter-spacing: -0.01em;
   }
-  .step p { font-weight: 500; font-size: 1.05rem; }
+  .step p { font-weight: 500; font-size: 1rem; color: var(--text-secondary); letter-spacing: -0.01em; }
 
-  /* ===== PRICING ===== */
+  /* ── PRICING ── */
   .pricing-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 22px;
-    align-items: stretch;
+    gap: 16px;
+    align-items: start;
   }
   .price-card {
     background: var(--bg-card);
@@ -307,299 +379,366 @@
     padding: 36px 30px;
     display: flex;
     flex-direction: column;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     position: relative;
   }
+  .price-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
   .price-card.featured {
-    border-color: var(--green);
-    background: linear-gradient(180deg, rgba(45,155,111,0.08) 0%, var(--bg-card) 60%);
-    box-shadow: 0 20px 60px rgba(45,155,111,0.15);
+    border-color: rgba(34,197,94,0.3);
+    background: linear-gradient(160deg, rgba(34,197,94,0.04) 0%, rgba(255,255,255,0.9) 60%);
+    box-shadow: 0 8px 32px rgba(34,197,94,0.12), 0 2px 8px rgba(0,0,0,0.05);
   }
-  .badge {
+  .price-card.featured:hover {
+    box-shadow: 0 16px 48px rgba(34,197,94,0.18), 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .price-badge {
     position: absolute;
     top: -13px; left: 50%; transform: translateX(-50%);
     background: var(--green);
     color: #fff;
-    font-size: 0.78rem; font-weight: 700;
-    padding: 6px 16px; border-radius: 999px;
+    font-size: 0.75rem; font-weight: 700;
+    padding: 5px 16px; border-radius: 980px;
     white-space: nowrap;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 8px rgba(34,197,94,0.35);
   }
-  .price-card .plan { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-  .price-card .price { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 18px; }
-  .price-card .price span { font-size: 0.95rem; font-weight: 500; color: var(--text-muted); }
-  .price-card .desc { color: var(--text-muted); margin-bottom: 28px; flex-grow: 1; }
-  .price-card .btn { width: 100%; }
+  .plan-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 10px;
+  }
+  .plan-price {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .plan-price span { font-size: 1rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0; }
+  .plan-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    letter-spacing: -0.01em;
+    line-height: 1.55;
+    margin-bottom: 28px;
+    flex-grow: 1;
+  }
+  .plan-cta { width: 100%; font-size: 0.95rem; padding: 12px 20px; border-radius: var(--radius-sm); }
 
-  /* ===== CONTACT ===== */
-  .contact-wrap {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-    align-items: start;
+  /* ── CONTACT ── */
+  .contact-inner {
+    max-width: 560px;
+    margin: 0 auto;
   }
-  form { display: flex; flex-direction: column; gap: 18px; }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-lg);
+  }
   .field label {
-    display: block; font-size: 0.9rem; font-weight: 600;
-    margin-bottom: 8px; color: var(--text);
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 7px;
+    letter-spacing: -0.01em;
   }
   .field input, .field textarea {
     width: 100%;
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
+    background: rgba(0,0,0,0.02);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 12px 15px;
     color: var(--text);
-    font-family: inherit;
-    font-size: 1rem;
-    transition: border-color 0.2s ease;
+    font-family: var(--font);
+    font-size: 0.97rem;
+    letter-spacing: -0.01em;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
     resize: vertical;
+    -webkit-appearance: none;
   }
+  .field input::placeholder, .field textarea::placeholder { color: var(--text-muted); }
   .field input:focus, .field textarea:focus {
-    outline: none; border-color: var(--green);
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.12);
+    background: #fff;
   }
   .field textarea { min-height: 110px; }
-  .contact-alt { color: var(--text-muted); margin-top: 4px; font-size: 0.95rem; }
-  .contact-alt a { color: var(--green); font-weight: 600; }
-  .form-success {
-    display: none;
-    background: rgba(45,155,111,0.1);
-    border: 1px solid rgba(45,155,111,0.3);
-    color: var(--green);
-    padding: 14px 16px; border-radius: 12px; font-weight: 600;
-  }
-
-  /* ===== FOOTER ===== */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 32px 0;
+  .contact-alt {
     text-align: center;
     color: var(--text-muted);
     font-size: 0.9rem;
+    letter-spacing: -0.01em;
+    margin-top: 4px;
+  }
+  .contact-alt a { color: var(--green-dark); font-weight: 600; }
+  .form-success {
+    display: none;
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.2);
+    color: var(--green-dark);
+    padding: 13px 16px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.95rem;
   }
 
-  /* ===== FLOATING WHATSAPP ===== */
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
+    background: var(--bg-soft);
+  }
+
+  /* ── FLOATING WHATSAPP ── */
   .fab {
     position: fixed;
     bottom: 24px; right: 24px;
-    width: 60px; height: 60px;
+    width: 58px; height: 58px;
     border-radius: 50%;
-    background: var(--whatsapp);
+    background: #22c55e;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 10px 30px rgba(37,211,102,0.4);
+    box-shadow: 0 8px 24px rgba(34,197,94,0.38), 0 2px 6px rgba(0,0,0,0.08);
     z-index: 120;
-    transition: transform 0.2s ease;
-    animation: fab-pop 0.4s ease 1s both;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    animation: fab-pop 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.8s both;
   }
-  .fab:hover { transform: scale(1.08); }
-  .fab svg { width: 32px; height: 32px; }
+  .fab:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 14px 32px rgba(34,197,94,0.48), 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .fab svg { width: 30px; height: 30px; }
   @keyframes fab-pop {
-    from { transform: scale(0); }
-    to { transform: scale(1); }
+    from { transform: scale(0) rotate(-15deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
   }
 
-  /* ===== SCROLL ANIMATIONS ===== */
+  /* ── REVEAL ANIMATIONS ── */
   .reveal {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateY(22px);
+    transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ===== RESPONSIVE ===== */
+  /* ── RESPONSIVE ── */
+  @media (min-width: 680px) {
+    .hero-cta-row { flex-direction: row; align-items: center; }
+  }
   @media (min-width: 768px) {
     .grid-3 { grid-template-columns: repeat(3, 1fr); }
     .steps { grid-template-columns: repeat(4, 1fr); }
+    .step { flex-direction: column; align-items: flex-start; }
+    .step:hover { transform: translateY(-3px); }
     .pricing-grid { grid-template-columns: repeat(3, 1fr); }
-    .price-card.featured { transform: scale(1.04); }
-    .contact-wrap { grid-template-columns: 1fr; max-width: 620px; margin: 0 auto; }
-    .hero-cta-row { flex-direction: row; align-items: center; }
-    .cta-sub { margin-left: 4px; }
+    .price-card.featured { transform: scale(1.03); }
+    .price-card.featured:hover { transform: scale(1.03) translateY(-3px); }
+  }
+  @media (max-width: 480px) {
+    form { padding: 24px 20px; }
+    .glass-card { padding: 24px; }
   }
 </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <div class="container nav-inner">
-      <a href="#" class="logo">
-        <svg class="logo-dot" width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="32" height="32" rx="8" fill="#1a6b4a"/>
-          <path d="M23 8 C23 13 19 15 17 16" stroke="rgba(255,255,255,0.38)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M15 16 C13 17 9 19 9 24" stroke="rgba(255,255,255,0.38)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M9 8 C9 14 23 18 23 24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
-        Lace
-      </a>
-      <a href="#contacto" class="btn btn-nav">Contactar</a>
-    </div>
-  </nav>
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="32" height="32" rx="8" fill="#1a6b4a"/>
+        <path d="M23 8 C23 13 19 15 17 16" stroke="rgba(255,255,255,0.38)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M15 16 C13 17 9 19 9 24" stroke="rgba(255,255,255,0.38)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M9 8 C9 14 23 18 23 24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      Lace
+    </a>
+    <a href="#contacto" class="btn btn-nav">Contactar</a>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="container">
-      <span class="eyebrow reveal">⚡ Automatizaciones para negocios reales</span>
-      <h1 class="reveal">¿Cuánto tiempo pierdes cada semana en tareas que podrían hacerse solas?</h1>
-      <ul class="hero-bullets reveal">
-        <li><span class="ico">📅</span><span>Clientes que no confirman cita y os dejan un hueco vacío</span></li>
-        <li><span class="ico">📋</span><span>Horas al teléfono gestionando reservas que podrían llegar solas</span></li>
-        <li><span class="ico">📲</span><span>Recordatorios que alguien tiene que enviar a mano uno por uno</span></li>
-      </ul>
-      <div class="hero-cta-row reveal">
-        <a href="https://wa.me/34722197596" class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener">Cuéntame tu caso por WhatsApp →</a>
-        <span class="cta-sub"><span class="pulse"></span>Respondiendo consultas en menos de 24h</span>
-      </div>
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <span class="eyebrow reveal">⚡ Automatizaciones para negocios reales</span>
+    <h1 class="reveal">¿Cuánto tiempo pierdes cada semana en tareas que podrían hacerse solas?</h1>
+    <ul class="hero-bullets reveal">
+      <li><span class="ico">📅</span><span>Clientes que no confirman cita y os dejan un hueco vacío</span></li>
+      <li><span class="ico">📋</span><span>Horas al teléfono gestionando reservas que podrían llegar solas</span></li>
+      <li><span class="ico">📲</span><span>Recordatorios que alguien tiene que enviar a mano uno por uno</span></li>
+    </ul>
+    <div class="hero-cta-row reveal">
+      <a href="https://wa.me/34722197596" class="btn btn-whatsapp" target="_blank" rel="noopener">Cuéntame tu caso por WhatsApp →</a>
+      <span class="cta-sub"><span class="pulse"></span>Respondiendo consultas en menos de 24h</span>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- CASOS DE USO -->
-  <section id="casos">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="tag">Casos reales</span>
-        <h2>Lo que tu negocio podría dejar de hacer a mano</h2>
-        <p>Cada negocio pierde el tiempo de forma distinta. Estas son tres formas de recuperarlo.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card reveal">
-          <div class="label">Barbería</div>
-          <h3>Tu agenda llena sin llamar a nadie</h3>
-          <p>El sistema confirma, recuerda y rellena los huecos automáticamente. Tú solo cortas el pelo.</p>
-        </div>
-        <div class="card reveal">
-          <div class="label">Clínica estética</div>
-          <h3>Cero no-shows, más ingresos</h3>
-          <p>Recordatorios automáticos 24h antes que reducen las cancelaciones de última hora.</p>
-        </div>
-        <div class="card reveal">
-          <div class="label">Peluquería</div>
-          <h3>Reservas mientras duermes</h3>
-          <p>Los clientes reservan por WhatsApp a cualquier hora sin que tú toques el teléfono.</p>
-        </div>
-      </div>
+<!-- CASOS DE USO -->
+<section id="casos" class="bg-soft">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="tag">Casos reales</span>
+      <h2>Lo que tu negocio podría dejar de hacer a mano</h2>
+      <p>Cada negocio pierde el tiempo de forma distinta. Estas son tres formas de recuperarlo.</p>
     </div>
-  </section>
-
-  <!-- PROCESO -->
-  <section id="proceso">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="tag">Cómo trabajo</span>
-        <h2>De tu problema a una solución que funciona sola</h2>
-        <p>Sin reuniones eternas ni jerga técnica. Cuatro pasos y listo.</p>
+    <div class="grid-3">
+      <div class="glass-card reveal">
+        <div class="card-label">Barbería</div>
+        <h3>Tu agenda llena sin llamar a nadie</h3>
+        <p>El sistema confirma, recuerda y rellena los huecos automáticamente. Tú solo cortas el pelo.</p>
       </div>
-      <div class="steps">
-        <div class="step reveal"><div class="step-num">1</div><p>Me cuentas el problema</p></div>
-        <div class="step reveal"><div class="step-num">2</div><p>Te propongo la solución y el precio</p></div>
-        <div class="step reveal"><div class="step-num">3</div><p>Lo construyo y te lo entrego</p></div>
-        <div class="step reveal"><div class="step-num">4</div><p>Funciona solo desde el primer día</p></div>
+      <div class="glass-card reveal">
+        <div class="card-label">Clínica estética</div>
+        <h3>Cero no-shows, más ingresos</h3>
+        <p>Recordatorios automáticos 24h antes que reducen las cancelaciones de última hora.</p>
+      </div>
+      <div class="glass-card reveal">
+        <div class="card-label">Peluquería</div>
+        <h3>Reservas mientras duermes</h3>
+        <p>Los clientes reservan por WhatsApp a cualquier hora sin que tú toques el teléfono.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PRECIOS -->
-  <section id="precios">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="tag">Precios</span>
-        <h2>Precios claros, sin sorpresas</h2>
-        <p>Eliges según lo que necesites hoy. Puedes empezar pequeño y crecer.</p>
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="tag">Cómo trabajo</span>
+      <h2>De tu problema a una solución que funciona sola</h2>
+      <p>Sin reuniones eternas ni jerga técnica. Cuatro pasos y listo.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-num">1</div><p>Me cuentas el problema</p></div>
+      <div class="step reveal"><div class="step-num">2</div><p>Te propongo la solución y el precio</p></div>
+      <div class="step reveal"><div class="step-num">3</div><p>Lo construyo y te lo entrego</p></div>
+      <div class="step reveal"><div class="step-num">4</div><p>Funciona solo desde el primer día</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios" class="bg-soft">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="tag">Precios</span>
+      <h2>Precios claros, sin sorpresas</h2>
+      <p>Eliges según lo que necesites hoy. Puedes empezar pequeño y crecer.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="plan-name">Script</div>
+        <div class="plan-price">desde 199€</div>
+        <p class="plan-desc">Para una tarea concreta. Recuperas la inversión en la primera semana.</p>
+        <a href="#contacto" class="btn btn-outline plan-cta">Lo quiero</a>
       </div>
-      <div class="pricing-grid">
-        <div class="price-card reveal">
-          <div class="plan">Script</div>
-          <div class="price">desde 199€</div>
-          <p class="desc">Para una tarea concreta. Recuperas la inversión en la primera semana.</p>
-          <a href="#contacto" class="btn btn-nav">Lo quiero</a>
-        </div>
-        <div class="price-card featured reveal">
-          <div class="badge">Más popular</div>
-          <div class="plan">Automatización</div>
-          <div class="price">desde 599€</div>
-          <p class="desc">Sistema completo. Lo que haces en 5 horas a la semana, ahora tarda 0.</p>
-          <a href="#contacto" class="btn btn-green">Empezar ahora</a>
-        </div>
-        <div class="price-card reveal">
-          <div class="plan">Retainer</div>
-          <div class="price">desde 799€<span>/mes</span></div>
-          <p class="desc">Para negocios que quieren seguir creciendo sin contratar a nadie.</p>
-          <a href="#contacto" class="btn btn-nav">Hablar conmigo</a>
-        </div>
+      <div class="price-card featured reveal">
+        <div class="price-badge">Más popular</div>
+        <div class="plan-name">Automatización</div>
+        <div class="plan-price">desde 599€</div>
+        <p class="plan-desc">Sistema completo. Lo que haces en 5 horas a la semana, ahora tarda 0.</p>
+        <a href="#contacto" class="btn btn-green plan-cta">Empezar ahora</a>
+      </div>
+      <div class="price-card reveal">
+        <div class="plan-name">Retainer</div>
+        <div class="plan-price">desde 799€<span>/mes</span></div>
+        <p class="plan-desc">Para negocios que quieren seguir creciendo sin contratar a nadie.</p>
+        <a href="#contacto" class="btn btn-outline plan-cta">Hablar conmigo</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CONTACTO -->
-  <section id="contacto">
-    <div class="container">
-      <div class="contact-wrap">
-        <div>
-          <div class="section-head reveal" style="margin-bottom: 28px;">
-            <span class="tag">Contacto</span>
-            <h2>Cuéntame qué haces a mano</h2>
-            <p>Te respondo en menos de 24h con una idea de cómo automatizarlo.</p>
-          </div>
-          <form id="contact-form" class="reveal">
-            <div class="field">
-              <label for="nombre">Nombre</label>
-              <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre" />
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required placeholder="tucorreo@ejemplo.com" />
-            </div>
-            <div class="field">
-              <label for="tarea">¿Qué haces ahora a mano que te gustaría automatizar?</label>
-              <textarea id="tarea" name="tarea" required placeholder="Ej: confirmar citas por WhatsApp una a una..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-green btn-lg">Enviar →</button>
-            <div class="form-success" id="form-success">¡Gracias! Te escribiré en menos de 24h.</div>
-            <p class="contact-alt">O escríbeme directamente a <a href="mailto:lacespaindev@gmail.com">lacespaindev@gmail.com</a></p>
-          </form>
-        </div>
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="section-head reveal" style="max-width:100%; text-align:center; margin-bottom:36px;">
+        <span class="tag">Contacto</span>
+        <h2>Cuéntame qué haces a mano</h2>
+        <p>Te respondo en menos de 24h con una idea de cómo automatizarlo.</p>
       </div>
+      <form id="contact-form" class="reveal">
+        <div class="field">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre" />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="tucorreo@ejemplo.com" />
+        </div>
+        <div class="field">
+          <label for="tarea">¿Qué haces ahora a mano que te gustaría automatizar?</label>
+          <textarea id="tarea" name="tarea" required placeholder="Ej: confirmar citas por WhatsApp una a una..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-green" style="font-size:1rem; padding:14px 24px; border-radius:var(--radius-sm);">Enviar →</button>
+        <div class="form-success" id="form-success">¡Gracias! Te escribiré en menos de 24h.</div>
+        <p class="contact-alt">O escríbeme directamente a <a href="mailto:lacespaindev@gmail.com">lacespaindev@gmail.com</a></p>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">© 2026 Lace · lacespaindev@gmail.com</div>
-  </footer>
+<!-- FOOTER -->
+<footer>
+  <div class="container">© 2026 Lace · lacespaindev@gmail.com</div>
+</footer>
 
-  <!-- FLOATING WHATSAPP -->
-  <a href="https://wa.me/34722197596" class="fab" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
-    <svg viewBox="0 0 24 24" fill="#07351c" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.485 3.488"/>
-    </svg>
-  </a>
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/34722197596" class="fab" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.485 3.488"/>
+  </svg>
+</a>
 
-  <script>
-    // Scroll reveal animation
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-    // Form handling
-    const form = document.getElementById('contact-form');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const nombre = document.getElementById('nombre').value;
-      const email = document.getElementById('email').value;
-      const tarea = document.getElementById('tarea').value;
-      const subject = encodeURIComponent('Nueva consulta de automatización - ' + nombre);
-      const body = encodeURIComponent('Nombre: ' + nombre + '\nEmail: ' + email + '\n\nQuiere automatizar:\n' + tarea);
-      document.getElementById('form-success').style.display = 'block';
-      window.location.href = 'mailto:lacespaindev@gmail.com?subject=' + subject + '&body=' + body;
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
     });
-  </script>
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+  // Form
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value;
+    const email  = document.getElementById('email').value;
+    const tarea  = document.getElementById('tarea').value;
+    const subject = encodeURIComponent('Nueva consulta de automatización - ' + nombre);
+    const body    = encodeURIComponent('Nombre: ' + nombre + '\nEmail: ' + email + '\n\nQuiere automatizar:\n' + tarea);
+    document.getElementById('form-success').style.display = 'block';
+    window.location.href = 'mailto:lacespaindev@gmail.com?subject=' + subject + '&body=' + body;
+  });
+</script>
 
 </body>
 </html>
