@@ -176,28 +176,16 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 120px 0 80px;
+    padding: 76px 0 48px;
     position: relative;
     overflow: hidden;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, #f0fdf4 0%, #ffffff 65%);
   }
-  .hero-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-    width: 900px;
-    height: 600px;
-    background: radial-gradient(ellipse at center,
-      rgba(34,197,94,0.12) 0%,
-      rgba(134,239,172,0.06) 40%,
-      transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
+  .hero-glow { display: none; }
   .hero .container { position: relative; z-index: 1; }
   .eyebrow {
     display: inline-flex;
